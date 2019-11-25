@@ -15,14 +15,28 @@ using System.Windows.Shapes;
 
 namespace college_practice2_pcpartpicker
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
+            Database DB = new Database(@"Data Source=C:\Users\rytuciss\source\repos\college_practice2_pcpartpicker\college_practice2_pcpartpicker\database\database.db");
+
+            try
+            {
+                DB.CreateObjects();
+            }
+            catch (Exception Exc)
+            {
+                MessageBox.Show(Exc.Message);
+                Environment.Exit(0);
+            }
+
             InitializeComponent();
+
+            for (int i = 0; i < DB.GetKategorijuKiekis(); i++)
+            {
+                PasirinktiKategorija.Items.Add(DB.GetKategorijuList()[i]);
+            }
         }
     }
 }

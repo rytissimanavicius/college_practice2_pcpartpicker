@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace college_practice2_pcpartpicker
+{
+    class HDD : Dalis
+    {
+        public HDD(string a, string b, string c, string d)
+            : base(a, b, c, d)
+        {
+
+        }
+    }
+}
