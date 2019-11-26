@@ -14,5 +14,9 @@ namespace college_practice2_pcpartpicker
         {
             Tipas = e;
         }
+        public string GetTipas()
+        {
+            return Tipas;
+        }
     }
 }

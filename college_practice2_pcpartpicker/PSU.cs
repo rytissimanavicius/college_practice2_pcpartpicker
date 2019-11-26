@@ -16,5 +16,13 @@ namespace college_practice2_pcpartpicker
             Galia = e;
             Efektyvumas = f;
         }
+        public int GetGalia()
+        {
+            return Galia;
+        }
+        public int GetEfektyvumas()
+        {
+            return Efektyvumas;
+        }
     }
 }

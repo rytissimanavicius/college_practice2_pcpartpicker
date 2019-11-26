@@ -94,6 +94,7 @@ namespace college_practice2_pcpartpicker
             string Specifikacija = (SpecifikacijosCell.Column.GetCellContent(SpecifikacijosCell.Item) as TextBlock).Text;
 
             PasirinktosDalysSarasas.Items.Clear();
+
             for (int i = 0; i < PasirinktosDalys.Count; i++)
             {
                 if (PasirinktosDalys[i].GetKategorija() == PasirinktiKategorija.Text)
@@ -104,6 +105,54 @@ namespace college_practice2_pcpartpicker
                 }
                 PasirinktosDalysSarasas.Items.Add(PasirinktosDalys[i]);
             }
+
+            test1.Content = "a" + PasirinktosDalys[1].Modelis + "a";
+            test2.Content = "a" + DB.GetCPUList()[0].GetModelis() + "a";
+
+            //neveikia?????
+            //SkaiciuotiGalia();
+            //TikrintiSuderinamuma();
+        }
+
+
+
+        //TODO: perdaryt su findindex
+
+        public void SkaiciuotiGalia()
+        {
+            int ReikalingaGalia = 0;
+
+            for (int i = 0; i < PasirinktosDalys.Count; i++)
+                if (PasirinktosDalys[i].GetKategorija() == "CPU")
+                    for (int j = 0; j < DB.GetCPUList().Count; j++)
+                        if (DB.GetCPUList()[i].GetModelis() == PasirinktosDalys[i].Modelis)
+                            ReikalingaGalia += DB.GetCPUList()[i].GetGaliosReikalavimai();
+            
+            GaliosReikalavimai.Content = ReikalingaGalia;
+        }
+
+
+
+
+
+        public void TikrintiSuderinamuma()
+        {
+            //cooler 1 tikrinimas su mobo 
+            int i = PasirinktosDalys.FindIndex(a => a.GetKategorija() == "COOLER");
+            int j = DB.GetCoolerList().FindIndex(a => a.GetModelis() == PasirinktosDalys[i].Modelis);
+            //string UncutString = DB.GetCoolerList()[j].GetJungtiesTipas();
+            //char[] temp = UncutString.ToCharArray();
+            //for (int k = 0; )
+            //cpu 2 tikrinimai su mobo ir ram
+            //i = PasirinktosDalys.FindIndex(a => a.GetKategorija() == "CPU");
+            //j = DB.GetCPUList().FindIndex(a => a.GetModelis() == PasirinktosDalys[i].Modelis);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            test1.Content = PasirinktosDalys[0].GetKategorija();
+            test2.Content = PasirinktosDalys[1].GetKategorija();
         }
     }
 }

@@ -14,5 +14,9 @@ namespace college_practice2_pcpartpicker
         {
             JungtiesTipas = e;
         }
+        public string GetJungtiesTipas()
+        {
+            return JungtiesTipas;
+        }
     }
 }

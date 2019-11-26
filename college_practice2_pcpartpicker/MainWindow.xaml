@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:college_practice2_pcpartpicker"
         mc:Ignorable="d"
-        Title="Part Picker For PCs" Height="595" Width="1300">
-    <Grid>
+        Title="Part Picker For PCs" Height="800" Width="1204">
+    <Grid Margin="0,0,2,0">
         <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Komponentų sąrašas" HorizontalAlignment="Left" Margin="3,10,0,0" VerticalAlignment="Top" Width="211"/>
         <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="438,14,0,0" VerticalAlignment="Top"/>
         <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="509,17,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PasirinktiKategorijaComboBox"/>
-        <DataGrid RowHeight="125" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimas" HorizontalAlignment="Left" Height="494" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
+        <DataGrid RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -49,14 +49,14 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Paveikslėlis" Width="125">
+                <DataGridTemplateColumn Header="Paveikslėlis" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding PaveikslelisDaliuPasirinkimui}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Gamintojas" Width="125" Binding="{Binding GamintojasDaliuPasirinkimui}">
+                <DataGridTextColumn Header="Gamintojas" Width="100" Binding="{Binding GamintojasDaliuPasirinkimui}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -64,7 +64,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Modelis" Width="125" Binding="{Binding ModelisDaliuPasirinkimui}">
+                <DataGridTextColumn Header="Modelis" Width="100" Binding="{Binding ModelisDaliuPasirinkimui}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -164,7 +164,10 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Label Name="test" Content="Label" HorizontalAlignment="Left" Margin="645,320,0,0" VerticalAlignment="Top"/>
+        <Label Name="GaliosReikalavimai" Content="Label" HorizontalAlignment="Left" Margin="1143,551,0,0" VerticalAlignment="Top"/>
+        <Label Name="SuderinamumoKlaida" Content="Label" HorizontalAlignment="Left" Margin="820,610,0,0" VerticalAlignment="Top" Width="185"/>
+        <Label Name="test1" Content="Label" HorizontalAlignment="Left" Margin="715,665,0,0" VerticalAlignment="Top"/>
+        <Label Name="test2" Content="Label" HorizontalAlignment="Left" Margin="740,715,0,0" VerticalAlignment="Top"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="845,715,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>

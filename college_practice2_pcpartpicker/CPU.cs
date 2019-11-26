@@ -10,15 +10,25 @@ namespace college_practice2_pcpartpicker
     {
         private string JungtiesTipas { get; set; }
         private int RAMSpeedReikalavimai { get; set; }
-        private int RAMLatencyReikalavimai { get; set; }
         private int GaliosReikalavimai { get; set; }
-        public CPU(string a, string b, string c, string d, string e, int f, int g, int h) 
+        public CPU(string a, string b, string c, string d, string e, int f, int h) 
             : base(a, b, c, d)
         {
             JungtiesTipas = e;
             RAMSpeedReikalavimai = f;
-            RAMLatencyReikalavimai = g;
             GaliosReikalavimai = h;
+        }
+        public string GetJungtiesTipas()
+        {
+            return JungtiesTipas;
+        }
+        public int GetRAMSpeedReikalavimai()
+        {
+            return RAMSpeedReikalavimai;
+        }
+        public int GetGaliosReikalavimai()
+        {
+            return GaliosReikalavimai;
         }
     }
 }

@@ -14,5 +14,9 @@ namespace college_practice2_pcpartpicker
         {
             MontavimoTipas = e;
         }
+        public string GetMontavimoTipas()
+        {
+            return MontavimoTipas;
+        }
     }
 }

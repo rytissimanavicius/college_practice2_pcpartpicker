@@ -8,10 +8,15 @@ namespace college_practice2_pcpartpicker
 {
     class HDD : Dalis
     {
-        public HDD(string a, string b, string c, string d)
+        private string Jungtis;
+        public HDD(string a, string b, string c, string d, string e)
             : base(a, b, c, d)
         {
-
+            Jungtis = e;
+        }
+        public string GetJungtis()
+        {
+            return Jungtis;
         }
     }
 }

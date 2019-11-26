@@ -9,14 +9,14 @@ namespace college_practice2_pcpartpicker
     class RAM : Dalis
     {
         private int RAMSpeed { get; set; }
-        private int RAMLatency { get; set; }
-        private int GaliosReikalavimai { get; set; }
-        public RAM(string a, string b, string c, string d, int e, int f, int g)
+        public RAM(string a, string b, string c, string d, int e)
             : base(a, b, c, d)
         {
             RAMSpeed = e;
-            RAMLatency = f;
-            GaliosReikalavimai = g;
+        }
+        public int GetRAMSpeed()
+        {
+            return RAMSpeed;
         }
     }
 }

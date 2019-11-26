@@ -16,5 +16,13 @@ namespace college_practice2_pcpartpicker
             JungtiesTipas = e;
             GaliosReikalavimai = f;
         }
+        public string GetJungtiesTipas()
+        {
+            return JungtiesTipas;
+        }
+        public int GetGaliosReikalavimai()
+        {
+            return GaliosReikalavimai;
+        }
     }
 }
