@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PasirinktosDalys.cs" />
     <Compile Include="PSU.cs" />
     <Compile Include="RAM.cs" />
     <Compile Include="SSD.cs" />

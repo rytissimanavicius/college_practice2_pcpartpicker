@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:college_practice2_pcpartpicker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Part Picker For PCs" Height="595" Width="1300">
     <Grid>
-        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Komponentų sąrašas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="211"/>
-        <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="338,21,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="409,25,0,0" VerticalAlignment="Top" Width="120"/>
-        <DataGrid RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="PatiekaluPasirinkimas" HorizontalAlignment="Left" Height="499" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
+        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Komponentų sąrašas" HorizontalAlignment="Left" Margin="3,10,0,0" VerticalAlignment="Top" Width="211"/>
+        <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="438,14,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="509,17,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PasirinktiKategorijaComboBox"/>
+        <DataGrid RowHeight="125" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimas" HorizontalAlignment="Left" Height="494" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -32,13 +32,13 @@
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Paveikslėlis">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Pavadinimas">
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Gamintojas">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Aprašymas">
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Modelis">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Kaina (€)">
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Specifikacija">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
                         <Trigger Property="IsSelected" Value="True">
@@ -49,25 +49,122 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Paveikslėlis" Width="100">
+                <DataGridTemplateColumn Header="Paveikslėlis" Width="125">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding PaveikslelisPatiekaluPasirinkimui}" />
+                            <Image Source="{Binding PaveikslelisDaliuPasirinkimui}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Pavadinimas" Width="100" Binding="{Binding PavadinimasPatiekaluPasirinkimui}"/>
-                <DataGridTextColumn Header="Aprašymas" Width="200" Binding="{Binding AprasymasPatiekaluPasirinkimui}"/>
+                <DataGridTextColumn Header="Gamintojas" Width="125" Binding="{Binding GamintojasDaliuPasirinkimui}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Modelis" Width="125" Binding="{Binding ModelisDaliuPasirinkimui}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn CanUserSort="False" Header="Specifikacija" Width="200" Binding="{Binding AprasymasDaliuPasirinkimui}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button HorizontalAlignment="Center" Content="Į krepšelį" Width="101" Height="75"/>
+                            <Button HorizontalAlignment="Center" Click="DalisPridetiButton" Content="Pasirinkti" Width="99" Height="99"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Pasirinkti komponentai" HorizontalAlignment="Left" Margin="672,10,0,0" VerticalAlignment="Top" Width="233"/>
+        <DataGrid CanUserSortColumns="False" RowHeight="52" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="494" Margin="679,52,0,0" VerticalAlignment="Top" Width="auto">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Dalis">
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Gamintojas">
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Modelis">
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Specifikacija">
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </DataTrigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{x:Null}" />
+                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dalis" Width="100" Binding="{Binding KategorijaPasirinktaiDaliai}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Gamintojas" Width="100" Binding="{Binding GamintojasPasirinktaiDaliai}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Modelis" Width="100" Binding="{Binding ModelisPasirinktaiDaliai}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Specifikacija" Width="200" Binding="{Binding AprasymasPasirinktaiDaliai}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         
-        <Label Name="test" Content="Label" HorizontalAlignment="Left" Margin="575,175,0,0" VerticalAlignment="Top"/>
+        <Label Name="test" Content="Label" HorizontalAlignment="Left" Margin="645,320,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
