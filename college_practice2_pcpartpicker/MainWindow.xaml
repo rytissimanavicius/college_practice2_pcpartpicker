@@ -72,7 +72,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn CanUserSort="False" Header="Specifikacija" Width="200" Binding="{Binding AprasymasDaliuPasirinkimui}">
+                <DataGridTextColumn CanUserSort="False" Header="Specifikacija" Width="200" Binding="{Binding SpecifikacijaDaliuPasirinkimui}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -154,7 +154,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Specifikacija" Width="200" Binding="{Binding AprasymasPasirinktaiDaliai}">
+                <DataGridTextColumn Header="Specifikacija" Width="200" Binding="{Binding SpecifikacijaPasirinktaiDaliai}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />

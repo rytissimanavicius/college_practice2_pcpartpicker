@@ -10,13 +10,13 @@ namespace college_practice2_pcpartpicker
     {
         protected string Gamintojas { get; set; }
         protected string Modelis { get; set; }
-        protected string Aprasymas { get; set; }
+        protected string Specifikacija { get; set; }
         protected string Paveikslelis { get; set; }
         public Dalis(string a, string b, string c, string d)
         {
             Gamintojas = a;
             Modelis = b;
-            Aprasymas = c;
+            Specifikacija = c;
             Paveikslelis = d;
         }
         public string GetGamintojas()
@@ -27,9 +27,9 @@ namespace college_practice2_pcpartpicker
         {
             return Modelis;
         }
-        public string GetAprasymas()
+        public string GetSpecifikacija()
         {
-            return Aprasymas;
+            return Specifikacija;
         }
         public string GetPaveikslelis()
         {
@@ -43,9 +43,9 @@ namespace college_practice2_pcpartpicker
         {
             get { return GetModelis(); }
         }
-        public string AprasymasDaliuPasirinkimui
+        public string SpecifikacijaDaliuPasirinkimui
         {
-            get { return GetAprasymas(); }
+            get { return GetSpecifikacija(); }
         }
         public string PaveikslelisDaliuPasirinkimui
         {

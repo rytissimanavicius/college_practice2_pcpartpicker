@@ -24,7 +24,7 @@ namespace college_practice2_pcpartpicker
 {
     public partial class MainWindow : Window
     {
-        //listas objektu pasirinktu daliu informacijos datagridui, taip pat naudojama kategorijoms laikyti
+        //listas objektu pasirinktu daliu informacijos datagridui
         List<PasirinktosDalys> PasirinktosDalys = new List<PasirinktosDalys>();
         //db ir path
         Database DB = new Database(@"Data Source=C:\Users\rytuciss\source\repos\college_practice2_pcpartpicker\college_practice2_pcpartpicker\database\database.db");
@@ -34,21 +34,25 @@ namespace college_practice2_pcpartpicker
             //setupas
             try
             {
-                //is db imama info ir kuriami objektai, paruosiamas interfeisas darbui
+                //is db imama info ir kuriami objektai
                 DB.CreateObjects();
-                //supildomas kategoriju combobox bei kategorijos pasirinktu daliu sarasui
+                //sukurus db sukuriamas listas stringu, kuriame laikoma kategorijos lengvai prieigai
                 for (int i = 0; i < DB.GetKategorijuList().Count; i++)
                 {
+                    //combobox sudedama egzistuojancios kategorijos vartotojui pasirinkti
                     PasirinktiKategorija.Items.Add(DB.GetKategorijuList()[i]);
+                    //sukuriami objektai pasirinktu daliu ir duodamos kategorijos,
+                    //kita informacija bus sudedama tik pridejus konkrecias dalis
                     PasirinktosDalys.Add(new PasirinktosDalys(DB.GetKategorijuList()[i]));
+                    //atvaizduojama pasirinktos dalys datagride
                     PasirinktosDalysSarasas.Items.Add(PasirinktosDalys[i]);
                 }
+                //kad nebutu tuscias combobox paleidus programa, pasirenka pirma kategorija
                 PasirinktiKategorija.SelectedItem = DB.GetKategorijuList()[0];
             }
             catch (Exception Exc)
             {
                 MessageBox.Show(Exc.Message);
-                //setupo metu ivykus klaidai isjungiama
                 Environment.Exit(0);
             }
         }
@@ -86,6 +90,7 @@ namespace college_practice2_pcpartpicker
         }
         private void DalisPridetiButton(object sender, RoutedEventArgs e)
         {
+            //paspaudus prideti dali, isrenkama informacija buvusi toje eilute
             DataGridCellInfo GamintojoCell = DaliuPasirinkimas.SelectedCells[1];
             string Gamintojas = (GamintojoCell.Column.GetCellContent(GamintojoCell.Item) as TextBlock).Text;
             DataGridCellInfo ModelioCell = DaliuPasirinkimas.SelectedCells[2];
@@ -95,6 +100,9 @@ namespace college_practice2_pcpartpicker
 
             PasirinktosDalysSarasas.Items.Clear();
 
+            //pasiziurima koke kategorija pasirinkta combobox, 
+            //einama i lista pasirinktu daliu ir ieskoma sutampancios kategorijos, 
+            //tada virsuje isrinkta informacija sudedama i atitinkama objekta
             for (int i = 0; i < PasirinktosDalys.Count; i++)
             {
                 if (PasirinktosDalys[i].GetKategorija() == PasirinktiKategorija.Text)
@@ -106,11 +114,15 @@ namespace college_practice2_pcpartpicker
                 PasirinktosDalysSarasas.Items.Add(PasirinktosDalys[i]);
             }
 
+
+
+
+
             test1.Content = "a" + PasirinktosDalys[1].Modelis + "a";
             test2.Content = "a" + DB.GetCPUList()[0].GetModelis() + "a";
 
             //neveikia?????
-            //SkaiciuotiGalia();
+            SkaiciuotiGalia();
             //TikrintiSuderinamuma();
         }
 

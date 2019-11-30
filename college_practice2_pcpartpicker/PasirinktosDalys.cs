@@ -32,7 +32,7 @@ namespace college_practice2_pcpartpicker
         {
             get { return Modelis; }
         }
-        public string AprasymasPasirinktaiDaliai
+        public string SpecifikacijaPasirinktaiDaliai
         {
             get { return Specifikacija; }
         }
