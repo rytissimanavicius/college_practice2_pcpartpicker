@@ -11,7 +11,7 @@
         <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="413,14,0,0" VerticalAlignment="Top"/>
         <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="484,17,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PasirinktiKategorijaComboBox"/>
 
-        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimasSarasas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -124,6 +124,11 @@
                     </Setter>
                     <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Dalis">
+                            <Setter Property="Background" Value="LightBlue"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                     <!--Style.Triggers>
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Dalis">
                             <Setter Property="IsHitTestVisible" Value="False"/>
