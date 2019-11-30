@@ -11,9 +11,9 @@ namespace college_practice2_pcpartpicker
 {
     class Database
     {
-        //kategoriju listas kai prireiks spausdint interfeise
+        //kategoriju listas greitai prieigai
         private List<string> KategorijuList = new List<string>();
-        //kiekviena kompiuterio dalis kaip objektas
+        //daliu objektu listai su unikalia informacija
         private List<Cooler> CoolerList = new List<Cooler>();
         private List<CPU> CPUList = new List<CPU>();
         private List<GPU> GPUList = new List<GPU>();
@@ -23,23 +23,24 @@ namespace college_practice2_pcpartpicker
         private List<PSU> PSUList = new List<PSU>();
         private List<RAM> RAMList = new List<RAM>();
         private List<SSD> SSDList = new List<SSD>();
-        //programa paima is db informacija ir pagal ja sukure objektus
+        //sudaromas prisijungimas su db, konstruktorius perduoda path
         private SQLiteConnection Conn { get; set; }
         public Database(string a)
         {
             Conn = new SQLiteConnection(a);
         }
-        //reikalingi surenkant dalies info
+        //kintamieji perduoti informacijai is GetDalisInfo() metodo
         string a = null, b = null, c = null, d = null;
-        public void CreateObjects()
+        //kreipiamasi i db informacijos apie dalis, su ja kuriami objektai
+        public void SukurtiObjektus()
         {
             Conn.Open();
-            //kategorijos objektu kurimas
+            //kategorijos 
             using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT pavadinimas FROM kategorija", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
                         KategorijuList.Add(Reader.GetString(0));
-            //cooler objektu kurimas
+            //cooler
             using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,jungties_tipas FROM cooler", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
@@ -47,48 +48,74 @@ namespace college_practice2_pcpartpicker
                         GetDalisInfo(Reader.GetInt32(0));
                         CoolerList.Add(new Cooler(a, b, c, d, Reader.GetString(1)));
                     }
-            //cpu objektu kurimai
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,jungties_tipas,ram_speed_reikalavimai,galios_reikalavimai FROM cpu", Conn))
+            //cpu 
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,jungties_tipas,ram_speed_reikalavimai,galios_reikalavimai FROM cpu", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        CPUList.Add(new CPU(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetString(4), Reader.GetInt32(5), Reader.GetInt32(6)));
-            //gpu objektu kurimui
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,jungties_tipas,galios_reikalavimai FROM gpu", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        CPUList.Add(new CPU(a, b, c, d, Reader.GetString(1), Reader.GetInt32(2), Reader.GetInt32(3)));
+                    }
+            //gpu 
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,jungties_tipas,galios_reikalavimai FROM gpu", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        GPUList.Add(new GPU(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetString(4), Reader.GetInt32(5)));
-            //hdd objektu kurimui
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,jungtis FROM hdd", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        GPUList.Add(new GPU(a, b, c, d, Reader.GetString(1), Reader.GetInt32(2)));
+                    }            
+            //hdd 
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,jungtis FROM hdd", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        HDDList.Add(new HDD(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetString(4)));
-            //korpusu objektu kurimas
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,montavimo_tipas FROM korpusas", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        HDDList.Add(new HDD(a, b, c, d, Reader.GetString(1)));
+                    }                
+            //korpusu
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,montavimo_tipas FROM korpusas", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        KorpusasList.Add(new Korpusas(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetString(4)));
-            //mobo objektu kurimui
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,korpuso_tipas,cpu_jungties_tipas,ram_speed_min,ram_speed_max,ram_jungciu_kiekis,gpu_jungties_tipas,sata_kiekis,mdot2_kiekis FROM mobo", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        KorpusasList.Add(new Korpusas(a, b, c, d, Reader.GetString(1)));
+                    }   
+            //mobo 
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,korpuso_tipas,cpu_jungties_tipas,ram_speed_min,ram_speed_max,ram_jungciu_kiekis,gpu_jungties_tipas,sata_kiekis,mdot2_kiekis FROM mobo", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        MOBOList.Add(new MOBO(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetString(4), Reader.GetString(5), Reader.GetInt32(6), Reader.GetInt32(7), Reader.GetInt32(8), Reader.GetString(9), Reader.GetInt32(10), Reader.GetInt32(11)));
-            //psu objektu kurimui
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,galia,efektyvumas FROM psu", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        MOBOList.Add(new MOBO(a, b, c, d, Reader.GetString(1), Reader.GetString(2), Reader.GetInt32(3), Reader.GetInt32(4), Reader.GetInt32(5), Reader.GetString(6), Reader.GetInt32(7), Reader.GetInt32(8)));
+                    }   
+            //psu 
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,galia,efektyvumas FROM psu", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        PSUList.Add(new PSU(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetInt32(4), Reader.GetInt32(5)));
-            //ram objektu kurimui
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,ram_speed FROM ram", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        PSUList.Add(new PSU(a, b, c, d, Reader.GetInt32(1), Reader.GetInt32(2)));
+                    }  
+            //ram
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,ram_speed FROM ram", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        RAMList.Add(new RAM(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetInt32(4)));
-            //ssd objektu kurimui
-            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT gamintojas,modelis,specifikacija,paveikslelis,tipas FROM ssd", Conn))
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        RAMList.Add(new RAM(a, b, c, d, Reader.GetInt32(1)));
+                    }   
+            //ssd 
+            using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,tipas FROM ssd", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
-                        SSDList.Add(new SSD(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3), Reader.GetString(4)));
+                    {
+                        GetDalisInfo(Reader.GetInt32(0));
+                        SSDList.Add(new SSD(a, b, c, d, Reader.GetString(1)));
+                    }
             Conn.Close();
         }
+        //kuriant objekta kvieciamas sis metodas bei perduodamas id, pagal id randama
+        //"dalis" lenteles tinkamas irasas ir paimama modelis, specifikacija ir pns.
         public void GetDalisInfo(int e)
         {
             using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT id,gamintojas,modelis,specifikacija,paveikslelis FROM dalis", Conn))

@@ -35,7 +35,7 @@ namespace college_practice2_pcpartpicker
             try
             {
                 //is db imama info ir kuriami objektai
-                DB.CreateObjects();
+                DB.SukurtiObjektus();
                 //sukurus db sukuriamas listas stringu, kuriame laikoma kategorijos lengvai prieigai
                 for (int i = 0; i < DB.GetKategorijuList().Count; i++)
                 {
@@ -88,7 +88,7 @@ namespace college_practice2_pcpartpicker
                 for (int i = 0; i < DB.GetSSDList().Count; i++)
                     DaliuPasirinkimas.Items.Add(DB.GetSSDList()[i]);
         }
-        private void DalisPridetiButton(object sender, RoutedEventArgs e)
+        private void DuotiDaliPasirinktiems(object sender, RoutedEventArgs e)
         {
             //paspaudus prideti dali, isrenkama informacija buvusi toje eilute
             DataGridCellInfo GamintojoCell = DaliuPasirinkimas.SelectedCells[1];
@@ -113,22 +113,16 @@ namespace college_practice2_pcpartpicker
                 }
                 PasirinktosDalysSarasas.Items.Add(PasirinktosDalys[i]);
             }
+        }
+        private void PasalintiPasirinktaDali(object sender, RoutedEventArgs e)
+        {
 
-
-
-
-
-            test1.Content = "a" + PasirinktosDalys[1].Modelis + "a";
-            test2.Content = "a" + DB.GetCPUList()[0].GetModelis() + "a";
-
-            //neveikia?????
-            SkaiciuotiGalia();
-            //TikrintiSuderinamuma();
         }
 
 
 
-        //TODO: perdaryt su findindex
+
+
 
         public void SkaiciuotiGalia()
         {
@@ -159,12 +153,6 @@ namespace college_practice2_pcpartpicker
             //i = PasirinktosDalys.FindIndex(a => a.GetKategorija() == "CPU");
             //j = DB.GetCPUList().FindIndex(a => a.GetModelis() == PasirinktosDalys[i].Modelis);
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            test1.Content = PasirinktosDalys[0].GetKategorija();
-            test2.Content = PasirinktosDalys[1].GetKategorija();
         }
     }
 }

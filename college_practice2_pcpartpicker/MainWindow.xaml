@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:college_practice2_pcpartpicker"
         mc:Ignorable="d"
-        Title="Part Picker For PCs" Height="800" Width="1204">
+        Title="Part Picker For PCs" Height="800" Width="1431">
     <Grid Margin="0,0,2,0">
         <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Komponentų sąrašas" HorizontalAlignment="Left" Margin="3,10,0,0" VerticalAlignment="Top" Width="211"/>
-        <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="438,14,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="509,17,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PasirinktiKategorijaComboBox"/>
-        <DataGrid RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
+        <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="413,14,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="484,17,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PasirinktiKategorijaComboBox"/>
+
+        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -28,12 +29,12 @@
                     </Setter>
                     <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
+                    <!--Style.Triggers>
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Paveikslėlis">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Gamintojas">
-                            <Setter Property="IsHitTestVisible" Value="False"/>
+                            <Setter Property="IsHitTestVisible" Value="True"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Modelis">
                             <Setter Property="IsHitTestVisible" Value="False"/>
@@ -41,11 +42,14 @@
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Specifikacija">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Kaina">
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                        </DataTrigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="{x:Null}" />
                             <Setter Property="BorderBrush" Value="{x:Null}" />
                         </Trigger>
-                    </Style.Triggers>
+                    </Style.Triggers-->
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
@@ -80,18 +84,29 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Width="100">
+                <DataGridTextColumn Header="Kaina (€)" Width="75" Binding="{Binding KainaDaliuPasirinkimui}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <!--DataGridTemplateColumn Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button HorizontalAlignment="Center" Click="DalisPridetiButton" Content="Pasirinkti" Width="99" Height="99"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </-->
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Pasirinkti komponentai" HorizontalAlignment="Left" Margin="672,10,0,0" VerticalAlignment="Top" Width="233"/>
-        <DataGrid CanUserSortColumns="False" RowHeight="52" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="494" Margin="679,52,0,0" VerticalAlignment="Top" Width="auto">
+        <Button Content="ADD" HorizontalAlignment="Left" Margin="629,337,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="DuotiDaliPasirinktiems"/>
+        <Button Content="DEL" HorizontalAlignment="Left" Margin="629,416,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="PasalintiPasirinktaDali"/>
+
+        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Pasirinkti komponentai" HorizontalAlignment="Left" Margin="702,10,0,0" VerticalAlignment="Top" Width="233"/>
+        <DataGrid RowHeight="75" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="False" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="699" Margin="704,52,0,0" VerticalAlignment="Top" Width="700">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -109,7 +124,7 @@
                     </Setter>
                     <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
+                    <!--Style.Triggers>
                         <DataTrigger Binding="{Binding Column.Header, RelativeSource={RelativeSource Self}}" Value="Dalis">
                             <Setter Property="IsHitTestVisible" Value="False"/>
                         </DataTrigger>
@@ -126,7 +141,7 @@
                             <Setter Property="Background" Value="{x:Null}" />
                             <Setter Property="BorderBrush" Value="{x:Null}" />
                         </Trigger>
-                    </Style.Triggers>
+                    </-->
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
@@ -162,12 +177,17 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="Suderinamumas" Width="200" Binding="{Binding SuderinamumasPasirinktaiDaliai}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Name="GaliosReikalavimai" Content="Label" HorizontalAlignment="Left" Margin="1143,551,0,0" VerticalAlignment="Top"/>
-        <Label Name="SuderinamumoKlaida" Content="Label" HorizontalAlignment="Left" Margin="820,610,0,0" VerticalAlignment="Top" Width="185"/>
-        <Label Name="test1" Content="Label" HorizontalAlignment="Left" Margin="715,665,0,0" VerticalAlignment="Top"/>
-        <Label Name="test2" Content="Label" HorizontalAlignment="Left" Margin="740,715,0,0" VerticalAlignment="Top"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="845,715,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+
+        <Label Name="GaliosReikalavimai" Content="Label" HorizontalAlignment="Left" Margin="634,599,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
