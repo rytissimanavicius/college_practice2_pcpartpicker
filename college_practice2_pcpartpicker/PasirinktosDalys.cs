@@ -12,6 +12,8 @@ namespace college_practice2_pcpartpicker
         public string Gamintojas { get; set; }
         public string Modelis { get; set; }
         public string Specifikacija { get; set; }
+        public float Kaina { get; set; }
+        public bool Naudojamas { get; set; }
         public PasirinktosDalys(string a)
         {
             Kategorija = a;
@@ -35,6 +37,10 @@ namespace college_practice2_pcpartpicker
         public string SpecifikacijaPasirinktaiDaliai
         {
             get { return Specifikacija; }
+        }
+        public string KainaPasirinktaiDaliai
+        {
+            get { return Kaina.ToString("#.00 €"); }
         }
     }
 }

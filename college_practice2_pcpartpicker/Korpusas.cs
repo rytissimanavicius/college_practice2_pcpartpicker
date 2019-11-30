@@ -9,10 +9,10 @@ namespace college_practice2_pcpartpicker
     class Korpusas : Dalis
     {
         private string MontavimoTipas;
-        public Korpusas(string a, string b, string c, string d, string e)
-            : base(a, b, c, d)
+        public Korpusas(string a, string b, string c, string d, float e, string f)
+            : base(a, b, c, d, e)
         {
-            MontavimoTipas = e;
+            MontavimoTipas = f;
         }
         public string GetMontavimoTipas()
         {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:college_practice2_pcpartpicker"
         mc:Ignorable="d"
-        Title="Part Picker For PCs" Height="800" Width="1431">
+        Title="Part Picker For PCs" Height="800" Width="1430">
     <Grid Margin="0,0,2,0">
         <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Komponentų sąrašas" HorizontalAlignment="Left" Margin="3,10,0,0" VerticalAlignment="Top" Width="211"/>
         <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="413,14,0,0" VerticalAlignment="Top"/>
@@ -84,7 +84,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Kaina (€)" Width="75" Binding="{Binding KainaDaliuPasirinkimui}">
+                <DataGridTextColumn Header="Kaina" Width="75" Binding="{Binding KainaDaliuPasirinkimui}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -105,8 +105,8 @@
         <Button Content="ADD" HorizontalAlignment="Left" Margin="629,337,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="DuotiDaliPasirinktiems"/>
         <Button Content="DEL" HorizontalAlignment="Left" Margin="629,416,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="PasalintiPasirinktaDali"/>
 
-        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Pasirinkti komponentai" HorizontalAlignment="Left" Margin="702,10,0,0" VerticalAlignment="Top" Width="233"/>
-        <DataGrid RowHeight="75" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="False" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="699" Margin="704,52,0,0" VerticalAlignment="Top" Width="700">
+        <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Pasirinkti komponentai" HorizontalAlignment="Left" Margin="697,10,0,0" VerticalAlignment="Top" Width="233"/>
+        <DataGrid ScrollViewer.CanContentScroll="False" RowHeight="75" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="False" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="699" Margin="704,52,0,0" VerticalAlignment="Top" Width="700">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -150,7 +150,7 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Dalis" Width="100" Binding="{Binding KategorijaPasirinktaiDaliai}">
+                <DataGridTextColumn Header="Dalis" Width="75" Binding="{Binding KategorijaPasirinktaiDaliai}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -182,7 +182,15 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Suderinamumas" Width="200" Binding="{Binding SuderinamumasPasirinktaiDaliai}">
+                <DataGridTextColumn Header="Kaina" Width="75" Binding="{Binding KainaPasirinktaiDaliai}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Suderinamumas" Width="150" Binding="{Binding SuderinamumasPasirinktaiDaliai}">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -193,6 +201,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Name="GaliosReikalavimai" Content="Label" HorizontalAlignment="Left" Margin="634,599,0,0" VerticalAlignment="Top"/>
+        <Label Name="DaliuSuma" Content="Label" HorizontalAlignment="Left" Margin="634,599,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

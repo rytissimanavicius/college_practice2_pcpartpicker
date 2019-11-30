@@ -9,10 +9,10 @@ namespace college_practice2_pcpartpicker
     class Cooler : Dalis
     {
         private string JungtiesTipas { get; set; }
-        public Cooler(string a, string b, string c, string d, string e)
-            : base(a, b, c, d)
+        public Cooler(string a, string b, string c, string d, float e, string f)
+            : base(a, b, c, d, e)
         {
-            JungtiesTipas = e;
+            JungtiesTipas = f;
         }
         public string GetJungtiesTipas()
         {

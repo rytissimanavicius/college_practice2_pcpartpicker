@@ -9,10 +9,10 @@ namespace college_practice2_pcpartpicker
     class SSD : Dalis
     {
         private string Tipas { get; set; }
-        public SSD(string a, string b, string c, string d, string e)
-            : base(a, b, c, d)
+        public SSD(string a, string b, string c, string d, float e, string f)
+            : base(a, b, c, d, e)
         {
-            Tipas = e;
+            Tipas = f;
         }
         public string GetTipas()
         {

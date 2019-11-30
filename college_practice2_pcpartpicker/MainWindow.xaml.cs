@@ -51,8 +51,9 @@ namespace college_practice2_pcpartpicker
         }
         private void PasirinktiKategorijaComboBox(object sender, SelectionChangedEventArgs e)
         {
+            //isvalome sarasa, kad galetu refreshint su atnaujinta informacija
             DaliuPasirinkimasSarasas.Items.Clear();
-            //atsizvelgiama kokia kategorija pasirinkta kategorijos combobox ir supildo sarasa
+            //ziuri kuri kategorija pasirinkta, jai priklausancia informacija supildo i datagrida, refreshina
             if (PasirinktiKategorija.SelectedItem.ToString() == "COOLER")
                 for (int i = 0; i < DB.GetCoolerList().Count; i++)
                     DaliuPasirinkimasSarasas.Items.Add(DB.GetCoolerList()[i]);
@@ -83,44 +84,74 @@ namespace college_practice2_pcpartpicker
         }
         private void DuotiDaliPasirinktiems(object sender, RoutedEventArgs e)
         {
+            //pasirinke dali, paspaude prideti, isrenkame informacija is pasirinktos dalies cellu
             DataGridCellInfo GamintojoCell = DaliuPasirinkimasSarasas.SelectedCells[1];
             string Gamintojas = (GamintojoCell.Column.GetCellContent(GamintojoCell.Item) as TextBlock).Text;
             DataGridCellInfo ModelioCell = DaliuPasirinkimasSarasas.SelectedCells[2];
             string Modelis = (ModelioCell.Column.GetCellContent(ModelioCell.Item) as TextBlock).Text;
             DataGridCellInfo SpecifikacijosCell = DaliuPasirinkimasSarasas.SelectedCells[3];
             string Specifikacija = (SpecifikacijosCell.Column.GetCellContent(SpecifikacijosCell.Item) as TextBlock).Text;
-
+            DataGridCellInfo KainosCell = DaliuPasirinkimasSarasas.SelectedCells[4];
+            string Kaina = (KainosCell.Column.GetCellContent(KainosCell.Item) as TextBlock).Text;
+            //isvalome sarasa, kad galetu refreshint su atnaujinta informacija
             PasirinktosDalysSarasas.Items.Clear();
-
-            for (int i = 0; i < PasirinktosDalysList.Count; i++)
-            {
-                if (PasirinktosDalysList[i].GetKategorija() == PasirinktiKategorija.Text)
-                {
-                    PasirinktosDalysList[i].Gamintojas = Gamintojas;
-                    PasirinktosDalysList[i].Modelis = Modelis;
-                    PasirinktosDalysList[i].Specifikacija = Specifikacija;
-                }
-                PasirinktosDalysSarasas.Items.Add(PasirinktosDalysList[i]);
-            }
+            //ieskome datagride eilutes kurioje kategorija sutampa su pasirinkta kategorija
+            int i = PasirinktosDalysList.FindIndex(a => a.GetKategorija() == PasirinktiKategorija.Text);
+            //tikriname ar kazkokia dalis jau buvo pasirinkta, if true, jos kaina kuri iejo i suma pasalinama
+            //kitu atveju ta eilute buvo tuscia, padarome, kad nuo siol naudojama
+            if (PasirinktosDalysList[i].Naudojamas == true)
+                SkaiciuotiSuma(0, i);
+            else
+                PasirinktosDalysList[i].Naudojamas = true;
+            //informacija kuria isrinkome is vieno datagrido supildome i kita
+            PasirinktosDalysList[i].Gamintojas = Gamintojas;
+            PasirinktosDalysList[i].Modelis = Modelis;
+            PasirinktosDalysList[i].Specifikacija = Specifikacija;
+            //kaina string su euro zenklu, tai nukerpa ir pavercia i float, kad ateiti tikrint butu paprasciau
+            string KainaTrim = Kaina.Substring(0, Kaina.Length - 2);
+            PasirinktosDalysList[i].Kaina = float.Parse(KainaTrim);
+            //baigus pildyti informacija apie pasirinkta dali, paimama jos kaina, pridedama prie sumos
+            SkaiciuotiSuma(1, i);
+            //refreshinamas datagrid su atnaujinta informacija
+            for (int j = 0; j < PasirinktosDalysList.Count; j++)
+                PasirinktosDalysSarasas.Items.Add(PasirinktosDalysList[j]);
         }
         private void PasalintiPasirinktaDali(object sender, RoutedEventArgs e)
         {
-            DataGridCellInfo ModelioCell = PasirinktosDalysSarasas.SelectedCells[2];
-            string Modelis = (ModelioCell.Column.GetCellContent(ModelioCell.Item) as TextBlock).Text;
+            DataGridCellInfo KategorijosCell = PasirinktosDalysSarasas.SelectedCells[0];
+            string Kategorija = (KategorijosCell.Column.GetCellContent(KategorijosCell.Item) as TextBlock).Text;
 
             PasirinktosDalysSarasas.Items.Clear();
 
-            for (int i = 0; i < PasirinktosDalysList.Count; i++)
-            {
-                if (PasirinktosDalysList[i].Modelis == Modelis)
-                {
-                    PasirinktosDalysList[i].Gamintojas = null;
-                    PasirinktosDalysList[i].Modelis = null;
-                    PasirinktosDalysList[i].Specifikacija = null;
-                }
-                PasirinktosDalysSarasas.Items.Add(PasirinktosDalysList[i]);
-            }
+            int i = PasirinktosDalysList.FindIndex(a => a.GetKategorija() == Kategorija);
+
+            SkaiciuotiSuma(0, i);
+
+            PasirinktosDalysList[i].Gamintojas = "";
+            PasirinktosDalysList[i].Modelis = "";
+            PasirinktosDalysList[i].Specifikacija = "";
+            PasirinktosDalysList[i].Kaina = 0.0f;
+            PasirinktosDalysList[i].Naudojamas = false;
+            
+            for (int j = 0; j < PasirinktosDalysList.Count; j++)
+                PasirinktosDalysSarasas.Items.Add(PasirinktosDalysList[j]);
         }
+        float Suma = 0.0f;
+        public void SkaiciuotiSuma(int a, int i)
+        {
+            if (a == 0)
+                Suma -= PasirinktosDalysList[i].Kaina;
+            else
+                Suma += PasirinktosDalysList[i].Kaina;
+
+            DaliuSuma.Content = Math.Round(Suma, 2);
+        }
+
+
+
+
+
+
         public void SkaiciuotiGalia()
         {
             int ReikalingaGalia = 0;
@@ -131,7 +162,7 @@ namespace college_practice2_pcpartpicker
                         if (DB.GetCPUList()[i].GetModelis() == PasirinktosDalysList[i].Modelis)
                             ReikalingaGalia += DB.GetCPUList()[i].GetGaliosReikalavimai();
             
-            GaliosReikalavimai.Content = ReikalingaGalia;
+            //GaliosReikalavimai.Content = ReikalingaGalia;
         }
 
 
@@ -140,15 +171,7 @@ namespace college_practice2_pcpartpicker
 
         public void TikrintiSuderinamuma()
         {
-            //cooler 1 tikrinimas su mobo 
-            int i = PasirinktosDalysList.FindIndex(a => a.GetKategorija() == "COOLER");
-            int j = DB.GetCoolerList().FindIndex(a => a.GetModelis() == PasirinktosDalysList[i].Modelis);
-            //string UncutString = DB.GetCoolerList()[j].GetJungtiesTipas();
-            //char[] temp = UncutString.ToCharArray();
-            //for (int k = 0; )
-            //cpu 2 tikrinimai su mobo ir ram
-            //i = PasirinktosDalys.FindIndex(a => a.GetKategorija() == "CPU");
-            //j = DB.GetCPUList().FindIndex(a => a.GetModelis() == PasirinktosDalys[i].Modelis);
+            //cooler
 
         }
     }

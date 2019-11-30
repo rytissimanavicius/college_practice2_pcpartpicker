@@ -10,11 +10,11 @@ namespace college_practice2_pcpartpicker
     {
         private string JungtiesTipas { get; set; }
         private int GaliosReikalavimai { get; set; }
-        public GPU(string a, string b, string c, string d, string e, int f)
-            : base(a, b, c, d)
+        public GPU(string a, string b, string c, string d, float e, string f, int g)
+            : base(a, b, c, d, e)
         {
-            JungtiesTipas = e;
-            GaliosReikalavimai = f;
+            JungtiesTipas = f;
+            GaliosReikalavimai = g;
         }
         public string GetJungtiesTipas()
         {

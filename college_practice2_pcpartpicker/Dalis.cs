@@ -12,12 +12,14 @@ namespace college_practice2_pcpartpicker
         protected string Modelis { get; set; }
         protected string Specifikacija { get; set; }
         protected string Paveikslelis { get; set; }
-        public Dalis(string a, string b, string c, string d)
+        protected float Kaina { get; set; }
+        public Dalis(string a, string b, string c, string d, float e)
         {
             Gamintojas = a;
             Modelis = b;
             Specifikacija = c;
             Paveikslelis = d;
+            Kaina = e;
         }
         public string GetGamintojas()
         {
@@ -35,6 +37,10 @@ namespace college_practice2_pcpartpicker
         {
             return Paveikslelis;
         }
+        public float GetKaina()
+        {
+            return Kaina;
+        }
         public string GamintojasDaliuPasirinkimui
         {
             get { return GetGamintojas(); }
@@ -50,6 +56,10 @@ namespace college_practice2_pcpartpicker
         public string PaveikslelisDaliuPasirinkimui
         {
             get { return GetPaveikslelis(); }
+        }
+        public string KainaDaliuPasirinkimui
+        {
+            get { return GetKaina().ToString("#.00 €"); }
         }
     }
 }

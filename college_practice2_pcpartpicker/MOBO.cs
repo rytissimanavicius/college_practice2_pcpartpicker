@@ -16,17 +16,17 @@ namespace college_practice2_pcpartpicker
         private string GPUJungtiesTipas { get; set; }
         private int SataKiekis { get; set; }
         private int Mdot2Kiekis { get; set; }
-        public MOBO(string a, string b, string c, string d, string e, string f, int g, int h, int i, string j, int k, int l)
-            : base(a, b, c, d)
+        public MOBO(string a, string b, string c, string d, float e, string f, string g, int h, int i, int j, string k, int l, int m)
+            : base(a, b, c, d, e)
         {
-            KorpusoTipas = e;
-            CPUJungtiesTipas = f;
-            RAMSpeedMin = g;
-            RAMSpeedMax = h;
-            RAMJungciuKiekis = i;
-            GPUJungtiesTipas = j;
-            SataKiekis = k;
-            Mdot2Kiekis = l;
+            KorpusoTipas = f;
+            CPUJungtiesTipas = g;
+            RAMSpeedMin = h;
+            RAMSpeedMax = i;
+            RAMJungciuKiekis = j;
+            GPUJungtiesTipas = k;
+            SataKiekis = l;
+            Mdot2Kiekis = m;
         }
         public string GetKorpusoTipas()
         {
