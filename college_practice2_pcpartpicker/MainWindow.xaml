@@ -202,5 +202,6 @@
         </DataGrid>
 
         <Label Name="DaliuSuma" Content="Label" HorizontalAlignment="Left" Margin="634,599,0,0" VerticalAlignment="Top"/>
+        <Label Name="GaliosReikalavimai" Content="Label" HorizontalAlignment="Left" Margin="650,700,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

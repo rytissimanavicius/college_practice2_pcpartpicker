@@ -97,10 +97,13 @@ namespace college_practice2_pcpartpicker
             PasirinktosDalysSarasas.Items.Clear();
             //ieskome datagride eilutes kurioje kategorija sutampa su pasirinkta kategorija
             int i = PasirinktosDalysList.FindIndex(a => a.GetKategorija() == PasirinktiKategorija.Text);
-            //tikriname ar kazkokia dalis jau buvo pasirinkta, if true, jos kaina kuri iejo i suma pasalinama
-            //kitu atveju ta eilute buvo tuscia, padarome, kad nuo siol naudojama
+            //tikriname ar kazkokia dalis jau buvo pasirinkta, if true, jos kaina ir galia kurie iejo i suma ir
+            //galios reikalavimus pasalinama, kitu atveju ta eilute buvo tuscia, padarome, kad nuo siol naudojama
             if (PasirinktosDalysList[i].Naudojamas == true)
-                SkaiciuotiSuma(0, i);
+            {
+                SkaiciuotiSuma(i, 0);
+                SkaiciuotiGalia(i, 0);
+            }
             else
                 PasirinktosDalysList[i].Naudojamas = true;
             //informacija kuria isrinkome is vieno datagrido supildome i kita
@@ -110,8 +113,9 @@ namespace college_practice2_pcpartpicker
             //kaina string su euro zenklu, tai nukerpa ir pavercia i float, kad ateiti tikrint butu paprasciau
             string KainaTrim = Kaina.Substring(0, Kaina.Length - 2);
             PasirinktosDalysList[i].Kaina = float.Parse(KainaTrim);
-            //baigus pildyti informacija apie pasirinkta dali, paimama jos kaina, pridedama prie sumos
-            SkaiciuotiSuma(1, i);
+            //baigus pildyti informacija apie pasirinkta dali, paimama jos kaina ir galia, pridedama 
+            SkaiciuotiSuma(i, 1);
+            SkaiciuotiGalia(i, 1);
             //refreshinamas datagrid su atnaujinta informacija
             for (int j = 0; j < PasirinktosDalysList.Count; j++)
                 PasirinktosDalysSarasas.Items.Add(PasirinktosDalysList[j]);
@@ -125,7 +129,8 @@ namespace college_practice2_pcpartpicker
 
             int i = PasirinktosDalysList.FindIndex(a => a.GetKategorija() == Kategorija);
 
-            SkaiciuotiSuma(0, i);
+            SkaiciuotiSuma(i, 0);
+            SkaiciuotiGalia(i, 0);
 
             PasirinktosDalysList[i].Gamintojas = "";
             PasirinktosDalysList[i].Modelis = "";
@@ -137,32 +142,37 @@ namespace college_practice2_pcpartpicker
                 PasirinktosDalysSarasas.Items.Add(PasirinktosDalysList[j]);
         }
         float Suma = 0.0f;
-        public void SkaiciuotiSuma(int a, int i)
+        public void SkaiciuotiSuma(int i, int j)
         {
-            if (a == 0)
+            if (j == 0)
                 Suma -= PasirinktosDalysList[i].Kaina;
             else
                 Suma += PasirinktosDalysList[i].Kaina;
 
             DaliuSuma.Content = Math.Round(Suma, 2);
         }
-
-
-
-
-
-
-        public void SkaiciuotiGalia()
+        int Galia = 0;
+        public void SkaiciuotiGalia(int i, int j)
         {
-            int ReikalingaGalia = 0;
+            int k = DB.GetCPUList().FindIndex(a => a.GetModelis() == PasirinktosDalysList[i].Modelis);
+            if (k == -1)
+            {
+                k = DB.GetGPUList().FindIndex(a => a.GetModelis() == PasirinktosDalysList[i].Modelis);
+                if (k != -1)
+                {
+                    if (j == 0)
+                        Galia -= DB.GetGPUList()[k].GetGaliosReikalavimai();
+                    else
+                        Galia += DB.GetGPUList()[k].GetGaliosReikalavimai();
+                }
+            }
+            else
+                if (j == 0)
+                    Galia -= DB.GetCPUList()[k].GetGaliosReikalavimai();
+                else
+                    Galia += DB.GetCPUList()[k].GetGaliosReikalavimai();
 
-            for (int i = 0; i < PasirinktosDalysList.Count; i++)
-                if (PasirinktosDalysList[i].GetKategorija() == "CPU")
-                    for (int j = 0; j < DB.GetCPUList().Count; j++)
-                        if (DB.GetCPUList()[i].GetModelis() == PasirinktosDalysList[i].Modelis)
-                            ReikalingaGalia += DB.GetCPUList()[i].GetGaliosReikalavimai();
-            
-            //GaliosReikalavimai.Content = ReikalingaGalia;
+            GaliosReikalavimai.Content = Galia + 150;
         }
 
 
