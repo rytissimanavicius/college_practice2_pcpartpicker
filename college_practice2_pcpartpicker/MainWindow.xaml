@@ -11,7 +11,7 @@
         <Label Content="Kategorija:" HorizontalAlignment="Left" Margin="413,14,0,0" VerticalAlignment="Top"/>
         <ComboBox Name="PasirinktiKategorija" HorizontalAlignment="Left" Margin="484,17,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="PasirinktiKategorijaComboBox"/>
 
-        <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimasSarasas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
+        <DataGrid IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" VerticalScrollBarVisibility="Visible" x:Name="DaliuPasirinkimasSarasas" HorizontalAlignment="Left" Height="699" Margin="10,52,0,0" VerticalAlignment="Top" Width="auto">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -106,7 +106,7 @@
         <Button Content="DEL" HorizontalAlignment="Left" Margin="629,416,0,0" VerticalAlignment="Top" Width="50" Height="50" Click="PasalintiPasirinktaDali"/>
 
         <Label FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Left" Content="Pasirinkti komponentai" HorizontalAlignment="Left" Margin="697,10,0,0" VerticalAlignment="Top" Width="233"/>
-        <DataGrid ScrollViewer.CanContentScroll="False" RowHeight="75" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="False" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="699" Margin="704,52,0,0" VerticalAlignment="Top" Width="700">
+        <DataGrid IsReadOnly="True" ScrollViewer.CanContentScroll="False" RowHeight="75" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="False" RowHeaderWidth="0" x:Name="PasirinktosDalysSarasas" HorizontalAlignment="Left" Height="699" Margin="704,52,0,0" VerticalAlignment="Top" Width="700">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -201,7 +201,11 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Name="DaliuSuma" Content="Label" HorizontalAlignment="Left" Margin="634,599,0,0" VerticalAlignment="Top"/>
-        <Label Name="GaliosReikalavimai" Content="Label" HorizontalAlignment="Left" Margin="650,700,0,0" VerticalAlignment="Top"/>
+        <Label Content="SUMA (€):" HorizontalAlignment="Left" Margin="604,647,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="100"/>
+        <Label Name="DaliuSuma" Content="0000.00" HorizontalAlignment="Left" Margin="604,673,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center"/>
+        <Label Content="GALIA (W):" HorizontalAlignment="Left" Margin="604,699,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Width="100"/>
+        <Label Name="GaliosReikalavimai" Content="0000" HorizontalAlignment="Left" Margin="604,725,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center"/>
+        
+        <Button Click="AdminLogin" Content="?" HorizontalAlignment="Left" Margin="1384,20,0,0" VerticalAlignment="Top" Width="20" Height="20"/>
     </Grid>
 </Window>

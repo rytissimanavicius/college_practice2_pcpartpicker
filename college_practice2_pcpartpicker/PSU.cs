@@ -24,5 +24,9 @@ namespace college_practice2_pcpartpicker
         {
             return Efektyvumas;
         }
+        public int GetTikraGalia()
+        {
+            return (Galia * Efektyvumas) / 100;
+        }
     }
 }

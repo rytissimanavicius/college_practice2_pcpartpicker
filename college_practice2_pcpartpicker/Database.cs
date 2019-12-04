@@ -73,7 +73,7 @@ namespace college_practice2_pcpartpicker
                         GetDalisInfo(Reader.GetInt32(0));
                         HDDList.Add(new HDD(a, b, c, d, e, Reader.GetString(1)));
                     }                
-            //korpusu
+            //korpusas
             using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT dalies_id,montavimo_tipas FROM korpusas", Conn))
                 using (SQLiteDataReader Reader = Comm.ExecuteReader())
                     while (Reader.Read())
@@ -116,7 +116,7 @@ namespace college_practice2_pcpartpicker
             Conn.Close();
         }
         //kuriant objekta kvieciamas sis metodas bei perduodamas id, pagal id randama
-        //"dalis" lenteles tinkamas irasas ir paimama modelis, specifikacija ir pns.
+        //"dalis" lenteles tinkamas irasas ir paimama informacija apie ta dali
         public void GetDalisInfo(int f)
         {
             using (SQLiteCommand Comm = new SQLiteCommand(@"SELECT id,gamintojas,modelis,specifikacija,paveikslelis,kaina FROM dalis", Conn))
